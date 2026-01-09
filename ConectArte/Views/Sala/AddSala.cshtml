@@ -1,0 +1,43 @@
+﻿@model Sala
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Agregar Sala</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="AddSala" asp-controller="Sala" method="post">
+
+        <div class="form-group">
+            <label for="CapacidadMaxima">Capacidad máxima:</label>
+            <input type="number" asp-for="CapacidadMaxima" class="form-control text-center" id="CapacidadMaxima" name="CapacidadMaxima" />
+            <span asp-validation-for="CapacidadMaxima" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="CentroCulturalId">Centro Cultural:</label>
+            <select asp-for="CentroCulturalId" class="form-control text-center" id="CentroCulturalId" name="CentroCulturalId">
+                <option value="">-- Seleccione un centro cultural --</option>
+                @foreach (var centro in ViewData["CentrosCulturales"] as List<ConectArte.Models.CentroCultural>)
+                {
+                    <option value="@centro.Id">@centro.Nombre</option>
+                }
+            </select>
+            <span asp-validation-for="CentroCulturalId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="RecursosIds">Recursos asignados:</label>
+            <select name="RecursosIds" class="form-control text-center" id="RecursosIds" multiple>
+                @foreach (var recurso in ViewData["Recursos"] as List<ConectArte.Models.Recurso>)
+                {
+                    <option value="@recurso.Id">@recurso.Tipo</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Sala</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

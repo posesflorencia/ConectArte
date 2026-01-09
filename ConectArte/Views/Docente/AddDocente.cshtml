@@ -1,0 +1,47 @@
+﻿@model Docente
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Agregar Docente</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <form asp-action="AddDocente" controller="Docente" method="post">
+
+        <div class="form-group">
+            <label for="NombreCompleto">Nombre completo:</label>
+            <input type="text" asp-for="NombreCompleto" class="form-control text-center" id="NombreCompleto" name="NombreCompleto">
+            <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Especialidad">Especialidad:</label>
+            <select asp-for="Especialidad" class="form-control text-center">
+                <option value="">-- Selecciona una especialidad --</option>
+                @foreach (var esp in ViewData["Especialidades"] as List<string>)
+                {
+                    <option value="@esp">@esp</option>
+                }
+            </select>
+            <span asp-validation-for="Especialidad" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Telefono">Teléfono:</label>
+            <input type="number" asp-for="Telefono" class="form-control text-center" id="Telefono" name="Telefono">
+            <span asp-validation-for="Telefono" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" asp-for="Email" class="form-control text-center" id="Email" name="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Docente</button>
+
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

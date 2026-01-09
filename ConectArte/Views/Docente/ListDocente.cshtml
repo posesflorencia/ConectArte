@@ -1,0 +1,46 @@
+﻿@model List<Docente>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Docentes</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre completo</th>
+                <th>Especialidad</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var docente in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => docente.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => docente.NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => docente.Especialidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => docente.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => docente.Email)
+                    </td>
+                    <td>
+                        <form controller="Docente" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar este docente?');">
+                            <input type="hidden" name="id" value="@docente.Id" />
+                            <a asp-action="UpdateDocente" class="btn btn-sm btn-warning" asp-route-id="@docente.Id">Modificar</a>
+                            <input type="submit" value="Eliminar" asp-action="DeleteDocente" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

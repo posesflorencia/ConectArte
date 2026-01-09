@@ -1,0 +1,39 @@
+﻿@model List<Sala>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Salas</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Capacidad Máxima</th>
+                <th>Centro Cultural</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sala in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => sala.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => sala.CapacidadMaxima)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => sala.CentroCulturalAsignado.Nombre)
+                    </td>
+                    <td>
+                        <form asp-controller="Sala" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar esta sala?');">
+                            <input type="hidden" name="id" asp-for="@sala.Id" />
+                            <a asp-action="DetailsSala" class="btn btn-sm btn-primary" asp-route-id="@sala.Id">Detalles</a>
+                            <a asp-action="UpdateSala" class="btn btn-sm btn-warning" asp-route-id="@sala.Id">Modificar</a>
+                            <input type="submit" value="Eliminar" asp-action="DeleteSala" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

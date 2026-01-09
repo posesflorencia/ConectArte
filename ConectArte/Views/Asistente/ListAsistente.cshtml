@@ -1,0 +1,40 @@
+﻿@model List<Asistente>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Asistentes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre Completo</th>
+                <th>Tipo</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Centro Cultural</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asistente in Model)
+            {
+                <tr>
+                    <td>@asistente.Id</td>
+                    <td>@asistente.NombreCompleto</td>
+                    <td>@asistente.Tipo</td>
+                    <td>@asistente.Email</td>
+                    <td>@asistente.Telefono</td>
+                    <td>@asistente.CentroCulturalAsignado?.Nombre</td>
+                    <td>
+                        <form asp-controller="Asistente" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar este asistente?');">
+                            <input type="hidden" name="id" value="@asistente.Id" />
+                            <a asp-action="DetailsAsistente" class="btn btn-sm btn-primary" asp-route-id="@asistente.Id">Detalles</a>
+                            <a asp-action="UpdateAsistente" class="btn btn-sm btn-warning" asp-route-id="@asistente.Id">Modificar</a>
+                            <input type="submit" value="Eliminar" asp-action="DeleteAsistente" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,29 @@
+﻿@model List<Asistente>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Top 5 Asistentes con más talleres realizados</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Tipo</th>
+                <th>Cantidad de Talleres</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asistente in Model)
+            {
+                <tr>
+                    <td>@asistente.NombreCompleto</td>
+                    <td>@asistente.Email</td>
+                    <td>@asistente.Telefono</td>
+                    <td>@asistente.Tipo</td>
+                    <td>@asistente.AsistentesTalleres.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

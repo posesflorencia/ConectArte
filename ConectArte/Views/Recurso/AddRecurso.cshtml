@@ -1,0 +1,35 @@
+﻿@model Recurso
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Agregar Recurso</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="AddRecurso" controller="Recurso" method="post">
+
+        <div class="form-group">
+            <label for="Tipo">Tipo:</label>
+            <select asp-for="Tipo" class="form-control text-center" id="Tipo" name="Tipo">
+                <option value="">-- Selecciona un tipo de recurso --</option>
+                @foreach (var tipo in ViewData["TiposRecurso"] as List<string>)
+                {
+                    <option value="@tipo">@tipo</option>
+                }
+            </select>
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Disponible">¿Está disponible?</label>
+            <select asp-for="Disponible" class="form-control text-center" id="Disponible" name="Disponible">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Recurso</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

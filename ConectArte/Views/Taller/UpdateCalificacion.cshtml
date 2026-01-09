@@ -1,0 +1,29 @@
+﻿@model ConectArte.Models.AsistenteTaller
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Modificar Calificación</h1>
+
+    <form asp-action="UpdateCalificacion" controller="Taller" method="post">
+
+        <input type="hidden" asp-for="AsistenteId" />
+        <input type="hidden" asp-for="TallerId" />
+
+        <div class="form-group">
+            <label>Nombre del Asistente:</label>
+            <input type="text" class="form-control text-center" value="@Model.AsistenteAsignado?.NombreCompleto" readonly />
+        </div>
+
+        <div class="form-group">
+            <label>Nombre del Taller:</label>
+            <input type="text" class="form-control text-center" value="@Model.TallerAsignado?.Nombre" readonly />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Calificacion">Calificación:</label>
+            <input asp-for="Calificacion" class="form-control text-center" type="number" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        <a asp-action="DetailsTaller" asp-route-id="@Model.TallerId" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+</div>

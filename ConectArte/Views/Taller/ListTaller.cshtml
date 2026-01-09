@@ -1,0 +1,45 @@
+﻿@model List<Taller>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Talleres</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Capacidad Máxima</th>
+                <th>Duración (hs)</th>
+                <th>Fecha</th>
+                <th>Sala</th>
+                <th>Docente</th>
+                <th>Calificación Promedio</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var taller in Model)
+            {
+                <tr>
+                    <td>@taller.Id</td>
+                    <td>@taller.Nombre</td>
+                    <td>@taller.Tipo</td>
+                    <td>@taller.CapacidadMaxima</td>
+                    <td>@taller.DuracionHoras</td>
+                    <td>@taller.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>@("Sala " + taller.SalaId)</td>
+                    <td>@(taller.DocenteAsignado?.NombreCompleto ?? "Sin docente")</td>
+                    <td>@taller.CalificacionPromedio.ToString("F2")</td>
+                    <td>
+                        <form asp-controller="Taller" asp-action="DeleteTaller" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar este taller?');">
+                            <input type="hidden" name="id" value="@taller.Id" />
+                            <a asp-action="DetailsTaller" asp-route-id="@taller.Id" class="btn btn-sm btn-primary">Detalles</a>
+                            <a asp-action="UpdateTaller" asp-route-id="@taller.Id" class="btn btn-sm btn-warning">Modificar</a>
+                            <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

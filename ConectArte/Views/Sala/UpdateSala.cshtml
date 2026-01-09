@@ -1,0 +1,53 @@
+﻿@model Sala
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Modificar Sala</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="UpdateSala" asp-controller="Sala" method="post">
+
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input type="text" value="@Model.Id" asp-for="Id" class="form-control text-center" id="id" name="id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="capacidadMaxima">Capacidad Máxima:</label>
+            <input type="number" value="@Model.CapacidadMaxima" asp-for="CapacidadMaxima" class="form-control text-center" id="capacidadMaxima" name="capacidadMaxima" />
+            <span asp-validation-for="CapacidadMaxima" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="CentroCulturalId">Centro Cultural:</label>
+            <select asp-for="CentroCulturalId" class="form-control text-center" id="CentroCulturalId" name="CentroCulturalId">
+                <option value="">-- Selecciona un centro cultural --</option>
+                @foreach (var centro in ViewData["CentrosCulturales"] as List<ConectArte.Models.CentroCultural>)
+                {
+                    <option value="@centro.Id" selected="@(Model.CentroCulturalId == centro.Id)">
+                        @centro.Nombre
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CentroCulturalId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="RecursosIds">Recursos asignados:</label>
+            <select name="RecursosIds" class="form-control text-center" multiple>
+                @foreach (var recurso in ViewData["Recursos"] as List<ConectArte.Models.Recurso>)
+                {
+                    var estaAsignado = Model.Recursos.Any(r => r.Id == recurso.Id);
+                    <option value="@recurso.Id" selected="@(estaAsignado)">
+                        @recurso.Tipo
+                    </option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Modificar Sala</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

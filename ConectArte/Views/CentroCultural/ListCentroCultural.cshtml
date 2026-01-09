@@ -1,0 +1,39 @@
+﻿@model List<CentroCultural>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Centros Culturales</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Ciudad</th>
+                <th>Teléfono</th>
+                <th>Coordinador</th>
+                <th>Tel. Coordinador</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var centro in Model)
+            {
+                <tr>
+                    <td>@centro.Id</td>
+                    <td>@centro.Nombre</td>
+                    <td>@centro.Ciudad</td>
+                    <td>@centro.Telefono</td>
+                    <td>@centro.NombreCoordinador</td>
+                    <td>@centro.TelefonoCoordinador</td>
+                    <td>
+                        <form asp-controller="CentroCultural" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar este centro cultural?');">
+                            <input type="hidden" name="id" value="@centro.Id" />
+                            <a asp-action="DetailsCentroCultural" class="btn btn-sm btn-primary" asp-route-id="@centro.Id">Detalles</a>
+                            <a asp-action="UpdateCentroCultural" class="btn btn-sm btn-warning" asp-route-id="@centro.Id">Modificar</a>
+                            <input type="submit" value="Eliminar" asp-action="DeleteCentroCultural" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,85 @@
+﻿@model Taller
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Agregar Taller</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="AddTaller" method="post">
+
+        <div class="form-group">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" asp-for="Nombre" class="form-control text-center" id="Nombre" name="Nombre" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Tipo">Tipo:</label>
+            <select asp-for="Tipo" class="form-control text-center" id="Tipo" name="Tipo">
+                <option value="">-- Selecciona un tipo --</option>
+                @foreach (var tipo in ViewData["TiposTaller"] as List<string>)
+                {
+                    <option value="@tipo">@tipo</option>
+                }
+            </select>
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="CapacidadMaxima">Capacidad máxima:</label>
+            <input type="number" asp-for="CapacidadMaxima" class="form-control text-center" id="CapacidadMaxima" name="CapacidadMaxima" />
+            <span asp-validation-for="CapacidadMaxima" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="DuracionHoras">Duración (horas):</label>
+            <input type="number" asp-for="DuracionHoras" class="form-control text-center" id="DuracionHoras" name="DuracionHoras" />
+            <span asp-validation-for="DuracionHoras" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Fecha">Fecha:</label>
+            <input type="date" asp-for="Fecha" class="form-control text-center" id="Fecha" name="Fecha" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="SalaId">Sala asignada:</label>
+            <select asp-for="SalaId" class="form-control text-center" id="SalaId" name="SalaId">
+                <option value="">-- Seleccione una sala --</option>
+                @foreach (var sala in ViewData["Salas"] as List<ConectArte.Models.Sala>)
+                {
+                    <option value="@sala.Id">Sala @sala.Id</option>
+                }
+            </select>
+            <span asp-validation-for="SalaId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="DocenteId">Docente asignado:</label>
+            <select asp-for="DocenteId" class="form-control text-center" id="DocenteId" name="DocenteId">
+                <option value="">-- Seleccione un docente --</option>
+                @foreach (var docente in ViewData["Docentes"] as List<ConectArte.Models.Docente>)
+                {
+                    <option value="@docente.Id">@docente.NombreCompleto</option>
+                }
+            </select>
+            <span asp-validation-for="DocenteId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="AsistentesIds">Asistentes asignados:</label>
+            <select name="AsistentesIds" class="form-control text-center" id="AsistentesIds" multiple>
+                @foreach (var asistente in ViewData["Asistentes"] as List<ConectArte.Models.Asistente>)
+                {
+                    <option value="@asistente.Id">@asistente.NombreCompleto</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Taller</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,45 @@
+﻿@model CentroCultural
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Agregar Centro Cultural</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form asp-action="AddCentroCultural" controller="CentroCultural" method="post">
+
+        <div class="form-group">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" asp-for="Nombre" class="form-control text-center" id="Nombre" name="Nombre" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Ciudad">Ciudad:</label>
+            <input type="text" asp-for="Ciudad" class="form-control text-center" id="Ciudad" name="Ciudad" />
+            <span asp-validation-for="Ciudad" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Telefono">Teléfono:</label>
+            <input type="number" asp-for="Telefono" class="form-control text-center" id="Telefono" name="Telefono" />
+            <span asp-validation-for="Telefono" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="NombreCoordinador">Nombre del Coordinador:</label>
+            <input type="text" asp-for="NombreCoordinador" class="form-control text-center" id="NombreCoordinador" name="NombreCoordinador" />
+            <span asp-validation-for="NombreCoordinador" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="TelefonoCoordinador">Teléfono del Coordinador:</label>
+            <input type="number" asp-for="TelefonoCoordinador" class="form-control text-center" id="TelefonoCoordinador" name="TelefonoCoordinador" />
+            <span asp-validation-for="TelefonoCoordinador" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Centro Cultural</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

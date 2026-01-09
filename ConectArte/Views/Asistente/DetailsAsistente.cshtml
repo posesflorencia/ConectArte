@@ -1,0 +1,43 @@
+﻿@model ConectArte.Models.Asistente
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Detalles del Asistente</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Nombre completo:</h5>
+            <p class="card-text">@Model.NombreCompleto</p>
+
+            <h5 class="card-title">Tipo:</h5>
+            <p class="card-text">@Model.Tipo</p>
+
+            <h5 class="card-title">Email:</h5>
+            <p class="card-text">@Model.Email</p>
+
+            <h5 class="card-title">Teléfono:</h5>
+            <p class="card-text">@Model.Telefono</p>
+
+            <h5 class="card-title">Centro Cultural:</h5>
+            <p class="card-text">@Model.CentroCulturalAsignado?.Nombre</p>
+
+            <h5 class="card-title">Talleres asignados:</h5>
+            @if (Model.AsistentesTalleres != null && Model.AsistentesTalleres.Count > 0)
+            {
+                <ul class="list-group">
+                    @foreach (var at in Model.AsistentesTalleres)
+                    {
+                        <li class="list-group-item">
+                            Taller: <strong>@at.TallerAsignado?.Nombre</strong> - Calificación: <strong>@at.Calificacion</strong>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No hay talleres asignados.</p>
+            }
+        </div>
+    </div>
+
+    <a href="@Url.Action("ListAsistente", "Asistente")" class="btn btn-secondary mt-4">Volver al listado</a>
+</div>

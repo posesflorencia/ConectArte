@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ConectArte</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ConectArte.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ConectArte</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex gap-3">
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Asistentes</option>
+                        <option value="@Url.Action("AddAsistente", "Asistente")">Alta de asistente</option>
+                        <option value="@Url.Action("ListAsistente", "Asistente")">Listar asistentes</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Centro Cultural</option>
+                        <option value="@Url.Action("AddCentroCultural", "CentroCultural")">Alta de centro cultural</option>
+                        <option value="@Url.Action("ListCentroCultural", "CentroCultural")">Listar centros culturales</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Docentes</option>
+                        <option value="@Url.Action("AddDocente", "Docente")">Alta de docente</option>
+                        <option value="@Url.Action("ListDocente", "Docente")">Listar docentes</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Recursos</option>
+                        <option value="@Url.Action("AddRecurso", "Recurso")">Alta de recurso</option>
+                        <option value="@Url.Action("ListRecurso", "Recurso")">Listar recursos</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Salas</option>
+                        <option value="@Url.Action("AddSala", "Sala")">Alta de sala</option>
+                        <option value="@Url.Action("ListSala", "Sala")">Listar salas</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Talleres</option>
+                        <option value="@Url.Action("AddTaller", "Taller")">Alta de taller</option>
+                        <option value="@Url.Action("ListTaller", "Taller")">Listar talleres</option>
+                    </select>
+                    <select style="width: 150px; border:none" class="form-select" onchange="location = this.value;">
+                        <option selected disabled>Filtros</option>
+                        <option value="@Url.Action("AsistentesSinTallerConRecurso", "Filtros")">Asistentes que no participaron en talleres con cierto recurso</option>
+                        <option value="@Url.Action("Top5AsistentesConMasTalleres", "Filtros")">Top 5 Asistentes con más talleres realizados</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            &copy; 2025 - ConectArte - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

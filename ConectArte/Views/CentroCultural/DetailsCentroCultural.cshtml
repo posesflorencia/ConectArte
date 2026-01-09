@@ -1,0 +1,62 @@
+﻿@model ConectArte.Models.CentroCultural
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Detalles del Centro Cultural</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Nombre:</h5>
+            <p class="card-text">@Model.Nombre</p>
+
+            <h5 class="card-title">Ciudad:</h5>
+            <p class="card-text">@Model.Ciudad</p>
+
+            <h5 class="card-title">Teléfono:</h5>
+            <p class="card-text">@Model.Telefono</p>
+
+            <h5 class="card-title">Nombre del Coordinador:</h5>
+            <p class="card-text">@Model.NombreCoordinador</p>
+
+            <h5 class="card-title">Teléfono del Coordinador:</h5>
+            <p class="card-text">@Model.TelefonoCoordinador</p>
+
+            <hr />
+
+            <h5 class="card-title">Salas asociadas:</h5>
+            @if (Model.Salas != null && Model.Salas.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var sala in Model.Salas)
+                    {
+                        <li class="list-group-item">
+                            Sala Id: @sala.Id
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No hay salas asociadas.</p>
+            }
+
+            <h5 class="card-title mt-4">Asistentes asociados:</h5>
+            @if (Model.Asistentes != null && Model.Asistentes.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var asistente in Model.Asistentes)
+                    {
+                        <li class="list-group-item">
+                            Asistente Id: @asistente.Id - @asistente.NombreCompleto
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No hay asistentes asociados.</p>
+            }
+        </div>
+    </div>
+
+    <a href="@Url.Action("ListCentroCultural", "CentroCultural")" class="btn btn-secondary mt-4">Volver al listado</a>
+</div>

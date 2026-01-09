@@ -1,0 +1,38 @@
+﻿@model List<Recurso>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Lista de Recursos</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Disponible</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recurso in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => recurso.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => recurso.Tipo)
+                    </td>
+                    <td>
+                        @(recurso.Disponible ? "Sí" : "No")
+                    </td>
+                    <td>
+                        <form controller="Recurso" method="post" onsubmit="return confirm('¿Está seguro que desea eliminar este recurso?');">
+                            <input type="hidden" name="id" value="@recurso.Id" />
+                            <a asp-action="UpdateRecurso" class="btn btn-sm btn-warning" asp-route-id="@recurso.Id">Modificar</a>
+                            <input type="submit" value="Eliminar" asp-action="DeleteRecurso" class="btn btn-sm btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

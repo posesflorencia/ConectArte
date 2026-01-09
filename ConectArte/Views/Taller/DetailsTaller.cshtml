@@ -1,0 +1,71 @@
+﻿@model ConectArte.Models.Taller
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Detalles del Taller</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Nombre:</h5>
+            <p class="card-text">@Model.Nombre</p>
+
+            <h5 class="card-title">Tipo:</h5>
+            <p class="card-text">@Model.Tipo</p>
+
+            <h5 class="card-title">Capacidad Máxima:</h5>
+            <p class="card-text">@Model.CapacidadMaxima</p>
+
+            <h5 class="card-title">Duración (horas):</h5>
+            <p class="card-text">@Model.DuracionHoras</p>
+
+            <h5 class="card-title">Fecha:</h5>
+            <p class="card-text">@Model.Fecha.ToShortDateString()</p>
+
+            <h5 class="card-title">Sala:</h5>
+            <p class="card-text">@Model.SalaAsignada?.Id</p>
+
+            <h5 class="card-title">Docente:</h5>
+            <p class="card-text">@Model.DocenteAsignado?.NombreCompleto</p>
+
+            <h5 class="card-title">Calificación Promedio:</h5>
+            <p class="card-text">@Model.CalificacionPromedio.ToString("F2")</p>
+
+            <h5 class="card-title">Asistentes Asignados:</h5>
+            @if (Model.AsistentesTalleres != null && Model.AsistentesTalleres.Count > 0)
+            {
+                <ul class="list-group">
+                    @foreach (var at in Model.AsistentesTalleres)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>@at.AsistenteAsignado?.NombreCompleto</strong> -
+                                Calificación: @(at.Calificacion.HasValue ? at.Calificacion.ToString() : "Sin calificar")
+                            </div>
+
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-primary"
+                                   asp-action="UpdateCalificacion"
+                                   asp-controller="Taller"
+                                   asp-route-tallerId="@Model.Id"
+                                   asp-route-asistenteId="@at.AsistenteId">
+                                    Calificar
+                                </a>
+
+                                <form asp-action="DeleteAssignedAsistente" method="post" class="ms-2">
+                                    <input type="hidden" name="tallerId" value="@Model.Id" />
+                                    <input type="hidden" name="asistenteId" value="@at.AsistenteId" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No hay asistentes asignados.</p>
+            }
+        </div>
+    </div>
+
+    <a href="@Url.Action("ListTaller", "Taller")" class="btn btn-secondary mt-4">Volver al listado</a>
+</div>

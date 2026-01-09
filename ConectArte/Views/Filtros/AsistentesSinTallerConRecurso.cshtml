@@ -1,0 +1,47 @@
+﻿@model List<Asistente>
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Asistentes que no participaron en talleres con cierto recurso</h1>
+
+    <form asp-action="AsistentesSinTallerConRecurso" method="post" class="mb-4">
+        <label for="tipoRecurso">Seleccione un tipo de recurso:</label>
+        <select name="tipoRecurso" id="tipoRecurso" class="form-control text-center" style="max-width: 400px; margin: 0 auto;">
+            <option value="">-- Seleccione --</option>
+            @foreach (var tipo in ViewData["TiposRecurso"] as List<string>)
+            {
+                <option value="@tipo">@tipo</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(ViewData["Mensaje"] as string))
+    {
+        <div class="alert alert-warning">@ViewData["Mensaje"]</div>
+    }
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asistente in Model)
+                {
+                    <tr>
+                        <td>@asistente.NombreCompleto</td>
+                        <td>@asistente.Email</td>
+                        <td>@asistente.Telefono</td>
+                        <td>@asistente.Tipo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

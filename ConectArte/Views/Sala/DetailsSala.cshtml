@@ -1,0 +1,42 @@
+﻿@model ConectArte.Models.Sala
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Detalles de la Sala</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">ID:</h5>
+            <p class="card-text">@Model.Id</p>
+
+            <h5 class="card-title">Capacidad máxima:</h5>
+            <p class="card-text">@Model.CapacidadMaxima</p>
+
+            <h5 class="card-title">Centro cultural asignado:</h5>
+            <p class="card-text">@Model.CentroCulturalAsignado?.Nombre</p>
+
+            <h5 class="card-title">Recursos asignados:</h5>
+            @if (Model.Recursos != null && Model.Recursos.Count > 0)
+            {
+                <ul class="list-group">
+                    @foreach (var recurso in Model.Recursos)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @recurso.Tipo
+                            <form asp-action="DeleteAssignedRecurso" method="post" class="m-0">
+                                <input type="hidden" name="salaId" value="@Model.Id" />
+                                <input type="hidden" name="recursoId" value="@recurso.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">No hay recursos asignados.</p>
+            }
+        </div>
+    </div>
+
+    <a href="@Url.Action("ListSala", "Sala")" class="btn btn-secondary mt-4">Volver al listado</a>
+</div>

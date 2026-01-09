@@ -1,0 +1,67 @@
+﻿@model Asistente
+
+<div class="text-center">
+    <h1 class="display-4" style="font-size: 40px">Modificar Asistente</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <form asp-action="UpdateAsistente" asp-controller="Asistente" method="post">
+        <div class="form-group">
+            <label for="Id">Id:</label>
+            <input type="text" asp-for="Id" class="form-control text-center" id="Id" name="Id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="NombreCompleto">Nombre Completo:</label>
+            <input type="text" asp-for="NombreCompleto" class="form-control text-center" id="NombreCompleto" name="NombreCompleto" />
+            <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Tipo">Tipo:</label>
+            <select asp-for="Tipo" class="form-control text-center" id="Tipo" name="Tipo">
+                <option value="">-- Selecciona un tipo --</option>
+                @foreach (var tipo in ViewData["Tipos"] as List<string>)
+                {
+                    <option value="@tipo" selected="@(Model.Tipo == tipo)">
+                        @tipo
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Tipo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" asp-for="Email" class="form-control text-center" id="Email" name="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Telefono">Teléfono:</label>
+            <input type="number" asp-for="Telefono" class="form-control text-center" id="Telefono" name="Telefono" />
+            <span asp-validation-for="Telefono" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="CentroCulturalId">Centro Cultural:</label>
+            <select asp-for="CentroCulturalId" class="form-control text-center" id="CentroCulturalId" name="CentroCulturalId">
+                <option value="">-- Selecciona un Centro Cultural --</option>
+                @foreach (var centro in ViewData["CentrosCulturales"] as List<ConectArte.Models.CentroCultural>)
+                {
+                    <option value="@centro.Id" selected="@(Model.CentroCulturalId == centro.Id)">
+                        @centro.Nombre
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="CentroCulturalId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Modificar Asistente</button>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
